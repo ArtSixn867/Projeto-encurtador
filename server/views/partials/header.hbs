@@ -1,0 +1,60 @@
+<style>
+ .markdouga{
+border-radius: 3px;
+ 
+ }
+</style>
+<header>
+  <div class="logo-wrapper">
+    <a class="logo nav" href="/" title="Homepage">
+      <img class="markdouga"  src="https://i.pinimg.com/736x/84/38/6b/84386b9a7731c6b0789e7f83ba316fe6.jpg" alt="Imagem do Pinterest" width="24" height="24" />
+      {{site_name}}
+    </a>
+    <ul class="logo-links">
+      <li>
+        <a class="nav" href="https://www.instagram.com/astraxlinks?igsh=MWwxeTRtY3E0dnRqbw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" title="Instagram">
+          Instagram
+        </a>
+      </li>
+      {{#if report_email}}
+        <li>
+          <a class="nav" href="/report" title="Report abuse">
+            Reportar
+          </a>
+        </li>
+      {{/if}}
+    </ul>
+  </div>
+  <nav>
+    <ul>
+      {{#unless user}}
+        <li>
+          <a class="button primary" href="/login" title="Log in or sign up">
+            Log in / Sign up
+          </a>
+        </li>
+      {{/unless}}
+      {{#if user}}
+        <li>
+          <a class="button primary" href="/settings" title="Settings">
+            <span>{{> icons/cog}}</span>
+            Settings
+          </a>
+        </li>
+        {{#if isAdmin}}
+          <li>
+            <a class="button secondary" href="/admin" title="Admin">
+              <span>{{> icons/shield}}</span>
+              Admin
+            </a>
+          </li>
+        {{/if}}
+        <li>
+          <a class="nav" href="/logout" title="Log out">
+            Log out
+          </a>
+        </li>
+      {{/if}}
+    </ul>
+  </nav>
+</header>
