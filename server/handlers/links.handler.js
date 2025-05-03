@@ -517,10 +517,11 @@ async function redirect(req, res, next) {
             const password = decoded.slice(colon + 1);
             const matches = await bcrypt.compare(password, link.password);
             if (matches) {
-              const linkvertiseId = 1345741; // <-- Substitua pelo seu ID do Linkvertise
+              const linkvertiseId = 1345741;
               const originalUrl = link.target;
               const linkvertiseUrl = `https://linkvertise.com/${linkvertiseId}?target=${encodeURIComponent(originalUrl)}`;
               return res.redirect(linkvertiseUrl);
+
             }
             
           }
