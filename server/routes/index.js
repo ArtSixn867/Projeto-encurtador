@@ -7,20 +7,19 @@ const router = express.Router();
 // Suponha um modelo LinkModel com campo `destination`
 router.get('/:code', async (req, res, next) => {
   try {
-    // Buscar o link encurtado no banco de dados
     const link = await LinkModel.findOne({ code: req.params.code });
-    if (!link) return next(); // Código não encontrado, passe para próxima rota (404)
+    if (!link) return res.status(404).send('Link não encontrado');
 
-    // Codificar o URL de destino para incluir no parâmetro `target`
     const targetUrl = encodeURIComponent(link.destination);
-    // Montar a URL de redirecionamento do Linkvertise
     const lvUrl = `https://linkvertise.com/1345741/dynamic?target=${targetUrl}`;
-    // Redirecionar diretamente ao Linkvertise (status 302 padrão)
+    console.log(`Redirecionando para: ${lvUrl}`);
     return res.redirect(lvUrl);
   } catch (err) {
-    return next(err);
+    console.error('Erro ao redirecionar:', err);
+    return res.status(500).send('Erro interno do servidor');
   }
 });
+
 
 module.exports = router;
 
