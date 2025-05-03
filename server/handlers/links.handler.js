@@ -516,7 +516,13 @@ async function redirect(req, res, next) {
           if (colon !== -1) {
             const password = decoded.slice(colon + 1);
             const matches = await bcrypt.compare(password, link.password);
-            if (matches) return res.redirect(link.target);
+            if (matches) {
+              const linkvertiseId = 1345741; // <-- Substitua pelo seu ID do Linkvertise
+              const originalUrl = link.target;
+              const linkvertiseUrl = `https://linkvertise.com/${linkvertiseId}?target=${encodeURIComponent(originalUrl)}`;
+              return res.redirect(linkvertiseUrl);
+            }
+            
           }
         }
       }
@@ -541,7 +547,11 @@ async function redirect(req, res, next) {
   }
 
   // 8. Redirect to target
-  return res.redirect(link.target);
+  const linkvertiseId = 1345741; // <-- Substitua pelo seu ID do Linkvertise
+const originalUrl = link.target;
+const linkvertiseUrl = `https://linkvertise.com/${linkvertiseId}?target=${encodeURIComponent(originalUrl)}`;
+return res.redirect(linkvertiseUrl);
+
 };
 
 async function redirectProtected(req, res) {
